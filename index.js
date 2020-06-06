@@ -42,18 +42,54 @@
 //##################-> Count Unique Values Challenge <-##################
 //#######################################################################
 
-function countUniqueValues(arr) {
-	let i = 0;
-	for (let j = 0; j < arr.length; j++) {
-		if (arr[i] != arr[j]) {
-			i++;
-			arr[i] = arr[j];
+// function countUniqueValues(arr) {
+// 	if (arr.length === 0) return 0;
+// 	let i = 0;
+// 	for (let j = 0; j < arr.length; j++) {
+// 		if (arr[i] != arr[j]) {
+// 			i++;
+// 			arr[i] = arr[j];
+// 		}
+// 	}
+// 	return i + 1;
+// }
+
+// console.log(countUniqueValues([ 1, 1, 1, 1, 1, 2 ]));
+// console.log(countUniqueValues([ 1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13 ]));
+// console.log(countUniqueValues([]));
+// console.log(countUniqueValues([ -2, -1, -1, 0, 1 ]));
+
+//###########################################################
+//##################-> Frequency Counter <-##################
+//###########################################################
+
+function sameFrequency(first, second) {
+	let firstStr = first.toString();
+	let secondStr = second.toString();
+
+	if (firstStr.length != secondStr.length) {
+		return false;
+	}
+
+	let freqFirst = {};
+	let freqSecond = {};
+
+	for (let i = 0; i < firstStr.length; i++) {
+		freqFirst[firstStr[i]] = (freqFirst[firstStr[i]] || 0) + 1;
+	}
+
+	for (let j = 0; j < secondStr.length; j++) {
+		if (freqFirst.hasOwnProperty(secondStr[j]) && freqFirst[secondStr[j]] > 0) {
+			freqFirst[secondStr[j]]--;
+		} else {
+			return false;
 		}
 	}
-	return !arr.length ? i : i + 1;
+
+	return true;
 }
 
-console.log(countUniqueValues([ 1, 1, 1, 1, 1, 2 ]));
-console.log(countUniqueValues([ 1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13 ]));
-console.log(countUniqueValues([]));
-console.log(countUniqueValues([ -2, -1, -1, 0, 1 ]));
+console.log(sameFrequency(182, 281));
+console.log(sameFrequency(34, 14));
+console.log(sameFrequency(3589578, 5879385));
+console.log(sameFrequency(22, 222));
