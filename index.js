@@ -63,33 +63,58 @@
 //##################-> Frequency Counter <-##################
 //###########################################################
 
-function sameFrequency(first, second) {
-	let firstStr = first.toString();
-	let secondStr = second.toString();
+// function sameFrequency(first, second) {
+// 	let firstStr = first.toString();
+// 	let secondStr = second.toString();
 
-	if (firstStr.length != secondStr.length) {
-		return false;
-	}
+// 	if (firstStr.length != secondStr.length) {
+// 		return false;
+// 	}
 
-	let freqFirst = {};
-	let freqSecond = {};
+// 	let freqFirst = {};
+// 	let freqSecond = {};
 
-	for (let i = 0; i < firstStr.length; i++) {
-		freqFirst[firstStr[i]] = (freqFirst[firstStr[i]] || 0) + 1;
-	}
+// 	for (let i = 0; i < firstStr.length; i++) {
+// 		freqFirst[firstStr[i]] = (freqFirst[firstStr[i]] || 0) + 1;
+// 	}
 
-	for (let j = 0; j < secondStr.length; j++) {
-		if (freqFirst.hasOwnProperty(secondStr[j]) && freqFirst[secondStr[j]] > 0) {
-			freqFirst[secondStr[j]]--;
-		} else {
-			return false;
+// 	for (let j = 0; j < secondStr.length; j++) {
+// 		if (freqFirst.hasOwnProperty(secondStr[j]) && freqFirst[secondStr[j]] > 0) {
+// 			freqFirst[secondStr[j]]--;
+// 		} else {
+// 			return false;
+// 		}
+// 	}
+
+// 	return true;
+// }
+
+// console.log(sameFrequency(182, 281));
+// console.log(sameFrequency(34, 14));
+// console.log(sameFrequency(3589578, 5879385));
+// console.log(sameFrequency(22, 222));
+
+//##############################################################
+//##################-> Are There Duplicates <-##################
+//##############################################################
+
+function areThereDuplicates(...args) {
+	args.sort((a, b) => a > b);
+
+	let start = 0;
+	let next = 1;
+
+	while (next < args.length) {
+		if (args[start] === args[next]) {
+			return true;
 		}
+		start++;
+		next++;
 	}
 
-	return true;
+	return false;
 }
 
-console.log(sameFrequency(182, 281));
-console.log(sameFrequency(34, 14));
-console.log(sameFrequency(3589578, 5879385));
-console.log(sameFrequency(22, 222));
+console.log(areThereDuplicates(1, 2, 3));
+console.log(areThereDuplicates(1, 2, 2));
+console.log(areThereDuplicates('a', 'a', 'c', 'a'));
