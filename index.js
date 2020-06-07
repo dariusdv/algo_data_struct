@@ -150,83 +150,143 @@
 //##################-> Is Subsequence <-##################
 //########################################################
 
-function isSubsequence(firstStr, secondStr) {
-	let ptrFirst = 0;
-	let ptrSecond = 0;
+// function isSubsequence(firstStr, secondStr) {
+// 	let ptrFirst = 0;
+// 	let ptrSecond = 0;
 
-	while (ptrSecond < secondStr.length) {
-		if (firstStr[ptrFirst] === secondStr[ptrSecond]) {
-			ptrFirst++;
-			ptrSecond++;
-		} else {
-			ptrSecond++;
-		}
-		if (ptrFirst === firstStr.length) return true;
-	}
+// 	while (ptrSecond < secondStr.length) {
+// 		if (firstStr[ptrFirst] === secondStr[ptrSecond]) {
+// 			ptrFirst++;
+// 			ptrSecond++;
+// 		} else {
+// 			ptrSecond++;
+// 		}
+// 		if (ptrFirst === firstStr.length) return true;
+// 	}
 
-	return false;
-}
+// 	return false;
+// }
 
-console.log(isSubsequence('hello', 'hello world'));
-console.log(isSubsequence('sing', 'sting'));
-console.log(isSubsequence('abc', 'abracadabra'));
-console.log(isSubsequence('abc', 'acb'));
+// console.log(isSubsequence('hello', 'hello world'));
+// console.log(isSubsequence('sing', 'sting'));
+// console.log(isSubsequence('abc', 'abracadabra'));
+// console.log(isSubsequence('abc', 'acb'));
 
-//##########################################################
-//##################-> Max Subarray Sum <-##################
-//##########################################################
+// //##########################################################
+// //##################-> Max Subarray Sum <-##################
+// //##########################################################
 
-function maxSubarraySum(arr, num) {
-	if (arr.length < num) return null;
+// function maxSubarraySum(arr, num) {
+// 	if (arr.length < num) return null;
 
-	let total = 0;
-	for (let elem = 0; elem < num; elem++) {
-		total += arr[elem];
-	}
-	let currentTotal = total;
-	for (let elem = num; elem < arr.length; elem++) {
-		currentTotal += arr[elem] - arr[elem - num];
-		total = Math.max(total, currentTotal);
-	}
-	return total;
-}
+// 	let total = 0;
+// 	for (let elem = 0; elem < num; elem++) {
+// 		total += arr[elem];
+// 	}
+// 	let currentTotal = total;
+// 	for (let elem = num; elem < arr.length; elem++) {
+// 		currentTotal += arr[elem] - arr[elem - num];
+// 		total = Math.max(total, currentTotal);
+// 	}
+// 	return total;
+// }
 
-console.log(maxSubarraySum([ 100, 200, 300, 400 ], 2));
-console.log(maxSubarraySum([ 1, 4, 2, 10, 23, 3, 1, 0, 20 ], 4));
-console.log(maxSubarraySum([ -3, 4, 0, -2, 6, -1 ], 2));
-console.log(maxSubarraySum([ 3, -2, 7, -4, 1, -1, 4, -2, 1 ], 2));
-console.log(maxSubarraySum([ 2, 3 ], 3));
+// console.log(maxSubarraySum([ 100, 200, 300, 400 ], 2));
+// console.log(maxSubarraySum([ 1, 4, 2, 10, 23, 3, 1, 0, 20 ], 4));
+// console.log(maxSubarraySum([ -3, 4, 0, -2, 6, -1 ], 2));
+// console.log(maxSubarraySum([ 3, -2, 7, -4, 1, -1, 4, -2, 1 ], 2));
+// console.log(maxSubarraySum([ 2, 3 ], 3));
 
-//##########################################################
-//##################-> Min Subarray Sum <-##################
-//##########################################################
+// //##########################################################
+// //##################-> Min Subarray Sum <-##################
+// //##########################################################
 
-function minSubArrayLen(arr, int) {
-	let sum = 0;
+// function minSubArrayLen(arr, int) {
+// 	let sum = 0;
+// 	let start = 0;
+// 	let end = 0;
+// 	let minLen = Infinity;
+
+// 	while (start < arr.length) {
+// 		if (sum < int && end < arr.length) {
+// 			sum += arr[end];
+// 			end++;
+// 		} else if (sum >= int) {
+// 			minLen = Math.min(minLen, end - start);
+// 			sum -= arr[start];
+// 			start++;
+// 		} else {
+// 			break;
+// 		}
+// 	}
+
+// 	return minLen === Infinity ? 0 : minLen;
+// }
+
+// console.log(minSubArrayLen([ 2, 3, 1, 2, 4, 3 ], 7));
+// console.log(minSubArrayLen([ 2, 1, 6, 5, 4 ], 9));
+// console.log(minSubArrayLen([ 3, 1, 7, 11, 2, 9, 8, 21, 62, 33, 19 ], 52));
+// console.log(minSubArrayLen([ 1, 4, 16, 22, 5, 7, 8, 9, 10 ], 39));
+// console.log(minSubArrayLen([ 1, 4, 16, 22, 5, 7, 8, 9, 10 ], 55));
+// console.log(minSubArrayLen([ 4, 3, 3, 8, 1, 2, 3 ], 11));
+// console.log(minSubArrayLen([ 1, 4, 16, 22, 5, 7, 8, 9, 10 ], 95));
+
+// //###########################################################
+// //##################-> Longest Substrnig <-##################
+// //###########################################################
+
+function findLongestSubstring(str) {
+	let longest = 0;
+	let seen = {};
 	let start = 0;
-	let end = 0;
-	let minLen = Infinity;
 
-	while (start < arr.length) {
-		if (sum < int && end < arr.length) {
-			sum += arr[end];
-			end++;
-		} else if (sum >= int) {
-			minLen = Math.min(minLen, end - start);
-			sum -= arr[start];
-			start++;
-		} else {
-			break;
+	for (let i = 0; i < str.length; i++) {
+		let char = str[i];
+		if (seen[char]) {
+			start = Math.max(start, seen[char]);
 		}
+		longest = Math.max(longest, i - start + 1);
+		seen[char] = i + 1;
 	}
-
-	return minLen === Infinity ? 0 : minLen;
+	return longest;
 }
 
-console.log(minSubArrayLen([ 2, 3, 1, 2, 4, 3 ], 7));
-console.log(minSubArrayLen([ 2, 1, 6, 5, 4 ], 9));
-console.log(minSubArrayLen([ 3, 1, 7, 11, 2, 9, 8, 21, 62, 33, 19 ], 52));
-console.log(minSubArrayLen([ 1, 4, 16, 22, 5, 7, 8, 9, 10 ], 39));
-console.log(minSubArrayLen([ 1, 4, 16, 22, 5, 7, 8, 9, 10 ], 55));
-console.log(minSubArrayLen([ 4, 3, 3, 8, 1, 2, 3 ], 11));
-console.log(minSubArrayLen([ 1, 4, 16, 22, 5, 7, 8, 9, 10 ], 95));
+console.log(findLongestSubstring(''));
+console.log(findLongestSubstring('rithmschool'));
+console.log(findLongestSubstring('thisisawesome'));
+console.log(findLongestSubstring('thecatinthehat'));
+console.log(findLongestSubstring('bbbbbb'));
+console.log(findLongestSubstring('longestsubstring'));
+console.log(findLongestSubstring('thisishowwedoit'));
+
+// //#######################################################
+// //##################-> Binary Search <-##################
+// //#######################################################
+
+function binarySearch(arr, num) {
+	if (arr.length === 0) return -1;
+	let left = 0;
+	let right = arr.length - 1;
+	let middle = Math.floor((right + left) / 2);
+
+	while (arr[middle] !== num) {
+		if (middle === right && middle === left) {
+			return -1;
+		} else if (arr[middle] > num) {
+			right = middle - 1;
+		} else {
+			left = middle + 1;
+		}
+		middle = Math.floor((right + left) / 2);
+	}
+
+	return middle;
+}
+
+console.log(binarySearch([ 1, 2, 3, 4, 5 ], 2));
+console.log(binarySearch([ 1, 2, 3, 4, 5 ], 3));
+console.log(binarySearch([ 1, 2, 3, 4, 5 ], 5));
+console.log(binarySearch([ 1, 2, 3, 4, 5 ], 6));
+console.log(binarySearch([ 5, 6, 10, 13, 14, 18, 30, 34, 35, 37, 40, 44, 64, 79, 84, 86, 95, 96, 98, 99 ], 10));
+console.log(binarySearch([ 5, 6, 10, 13, 14, 18, 30, 34, 35, 37, 40, 44, 64, 79, 84, 86, 95, 96, 98, 99 ], 95));
+console.log(binarySearch([ 5, 6, 10, 13, 14, 18, 30, 34, 35, 37, 40, 44, 64, 79, 84, 86, 95, 96, 98, 99 ], 100));
