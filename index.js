@@ -172,9 +172,9 @@
 // console.log(isSubsequence('abc', 'abracadabra'));
 // console.log(isSubsequence('abc', 'acb'));
 
-// //##########################################################
-// //##################-> Max Subarray Sum <-##################
-// //##########################################################
+//##########################################################
+//##################-> Max Subarray Sum <-##################
+//##########################################################
 
 // function maxSubarraySum(arr, num) {
 // 	if (arr.length < num) return null;
@@ -197,9 +197,9 @@
 // console.log(maxSubarraySum([ 3, -2, 7, -4, 1, -1, 4, -2, 1 ], 2));
 // console.log(maxSubarraySum([ 2, 3 ], 3));
 
-// //##########################################################
-// //##################-> Min Subarray Sum <-##################
-// //##########################################################
+//##########################################################
+//##################-> Min Subarray Sum <-##################
+//##########################################################
 
 // function minSubArrayLen(arr, int) {
 // 	let sum = 0;
@@ -231,62 +231,117 @@
 // console.log(minSubArrayLen([ 4, 3, 3, 8, 1, 2, 3 ], 11));
 // console.log(minSubArrayLen([ 1, 4, 16, 22, 5, 7, 8, 9, 10 ], 95));
 
-// //###########################################################
-// //##################-> Longest Substrnig <-##################
-// //###########################################################
+//###########################################################
+//##################-> Longest Substrnig <-##################
+//###########################################################
 
-function findLongestSubstring(str) {
-	let longest = 0;
-	let seen = {};
-	let start = 0;
+// function findLongestSubstring(str) {
+// 	let longest = 0;
+// 	let seen = {};
+// 	let start = 0;
 
-	for (let i = 0; i < str.length; i++) {
-		let char = str[i];
-		if (seen[char]) {
-			start = Math.max(start, seen[char]);
-		}
-		longest = Math.max(longest, i - start + 1);
-		seen[char] = i + 1;
-	}
-	return longest;
+// 	for (let i = 0; i < str.length; i++) {
+// 		let char = str[i];
+// 		if (seen[char]) {
+// 			start = Math.max(start, seen[char]);
+// 		}
+// 		longest = Math.max(longest, i - start + 1);
+// 		seen[char] = i + 1;
+// 	}
+// 	return longest;
+// }
+
+// console.log(findLongestSubstring(''));
+// console.log(findLongestSubstring('rithmschool'));
+// console.log(findLongestSubstring('thisisawesome'));
+// console.log(findLongestSubstring('thecatinthehat'));
+// console.log(findLongestSubstring('bbbbbb'));
+// console.log(findLongestSubstring('longestsubstring'));
+// console.log(findLongestSubstring('thisishowwedoit'));
+
+//#######################################################
+//##################-> Binary Search <-##################
+//#######################################################
+
+// function binarySearch(arr, num) {
+// 	if (arr.length === 0) return -1;
+// 	let left = 0;
+// 	let right = arr.length - 1;
+// 	let middle = Math.floor((right + left) / 2);
+
+// 	while (arr[middle] !== num) {
+// 		if (middle === right && middle === left) {
+// 			return -1;
+// 		} else if (arr[middle] > num) {
+// 			right = middle - 1;
+// 		} else {
+// 			left = middle + 1;
+// 		}
+// 		middle = Math.floor((right + left) / 2);
+// 	}
+
+// 	return middle;
+// }
+
+// console.log(binarySearch([ 1, 2, 3, 4, 5 ], 2));
+// console.log(binarySearch([ 1, 2, 3, 4, 5 ], 3));
+// console.log(binarySearch([ 1, 2, 3, 4, 5 ], 5));
+// console.log(binarySearch([ 1, 2, 3, 4, 5 ], 6));
+// console.log(binarySearch([ 5, 6, 10, 13, 14, 18, 30, 34, 35, 37, 40, 44, 64, 79, 84, 86, 95, 96, 98, 99 ], 10));
+// console.log(binarySearch([ 5, 6, 10, 13, 14, 18, 30, 34, 35, 37, 40, 44, 64, 79, 84, 86, 95, 96, 98, 99 ], 95));
+// console.log(binarySearch([ 5, 6, 10, 13, 14, 18, 30, 34, 35, 37, 40, 44, 64, 79, 84, 86, 95, 96, 98, 99 ], 100));
+
+//###################################################
+//##################-> Recursion <-##################
+//###################################################
+
+function reverse(str) {
+	if (str.length <= 1) return str;
+	return reverse(str.slice(1)) + str[0];
 }
 
-console.log(findLongestSubstring(''));
-console.log(findLongestSubstring('rithmschool'));
-console.log(findLongestSubstring('thisisawesome'));
-console.log(findLongestSubstring('thecatinthehat'));
-console.log(findLongestSubstring('bbbbbb'));
-console.log(findLongestSubstring('longestsubstring'));
-console.log(findLongestSubstring('thisishowwedoit'));
+console.log(reverse('awesome'));
+console.log(reverse('rithmschool'));
 
-// //#######################################################
-// //##################-> Binary Search <-##################
-// //#######################################################
+function isPalindrome(str) {
+	if (str.length === 1) return true;
+	if (str.length === 2) return str[0] === str[1];
+	if (str[0] === str.slice(-1)) return isPalindrome(str.slice(1, -1));
+	return false;
+}
 
-function binarySearch(arr, num) {
-	if (arr.length === 0) return -1;
-	let left = 0;
-	let right = arr.length - 1;
-	let middle = Math.floor((right + left) / 2);
+console.log(isPalindrome('awesome')); // false
+console.log(isPalindrome('foobar')); // false
+console.log(isPalindrome('tacocat')); // true
+console.log(isPalindrome('amanaplanacanalpanama')); // true
+console.log(isPalindrome('amanaplanacanalpandemonium')); // false
 
-	while (arr[middle] !== num) {
-		if (middle === right && middle === left) {
-			return -1;
-		} else if (arr[middle] > num) {
-			right = middle - 1;
+function someRecursive(array, callback) {
+	if (array.length === 0) return false;
+	if (callback(array[array.length - 1])) return true;
+	return someRecursive(array.slice(0, -1), callback);
+}
+
+const isOdd = (val) => val % 2 !== 0;
+
+console.log(someRecursive([ 1, 2, 3, 4 ], isOdd)); // true
+console.log(someRecursive([ 4, 6, 8, 9 ], isOdd)); // true
+console.log(someRecursive([ 4, 6, 8 ], isOdd)); // false
+console.log(someRecursive([ 4, 6, 8 ], (val) => val > 10)); // false
+
+function flatten(oldArr) {
+	var newArr = [];
+	for (var i = 0; i < oldArr.length; i++) {
+		if (Array.isArray(oldArr[i])) {
+			newArr = newArr.concat(flatten(oldArr[i]));
 		} else {
-			left = middle + 1;
+			newArr.push(oldArr[i]);
 		}
-		middle = Math.floor((right + left) / 2);
 	}
-
-	return middle;
+	return newArr;
 }
 
-console.log(binarySearch([ 1, 2, 3, 4, 5 ], 2));
-console.log(binarySearch([ 1, 2, 3, 4, 5 ], 3));
-console.log(binarySearch([ 1, 2, 3, 4, 5 ], 5));
-console.log(binarySearch([ 1, 2, 3, 4, 5 ], 6));
-console.log(binarySearch([ 5, 6, 10, 13, 14, 18, 30, 34, 35, 37, 40, 44, 64, 79, 84, 86, 95, 96, 98, 99 ], 10));
-console.log(binarySearch([ 5, 6, 10, 13, 14, 18, 30, 34, 35, 37, 40, 44, 64, 79, 84, 86, 95, 96, 98, 99 ], 95));
-console.log(binarySearch([ 5, 6, 10, 13, 14, 18, 30, 34, 35, 37, 40, 44, 64, 79, 84, 86, 95, 96, 98, 99 ], 100));
+console.log(flatten([ 1, 2, 3, [ 4, 5 ] ])); // [1, 2, 3, 4, 5]
+console.log(flatten([ 1, [ 2, [ 3, 4 ], [ [ 5 ] ] ] ])); // [1, 2, 3, 4, 5]
+console.log(flatten([ [ 1 ], [ 2 ], [ 3 ] ])); // [1, 2, 3]
+console.log(flatten([ [ [ [ 1 ], [ [ [ 2 ] ] ], [ [ [ [ [ [ [ 3 ] ] ] ] ] ] ] ] ] ])); // [1, 2, 3]
