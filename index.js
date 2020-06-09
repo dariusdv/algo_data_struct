@@ -291,57 +291,203 @@
 // console.log(binarySearch([ 5, 6, 10, 13, 14, 18, 30, 34, 35, 37, 40, 44, 64, 79, 84, 86, 95, 96, 98, 99 ], 95));
 // console.log(binarySearch([ 5, 6, 10, 13, 14, 18, 30, 34, 35, 37, 40, 44, 64, 79, 84, 86, 95, 96, 98, 99 ], 100));
 
-//###################################################
-//##################-> Recursion <-##################
-//###################################################
+//##########################################################
+//##################-> Recursion Part 1 <-##################
+//##########################################################
 
-function reverse(str) {
-	if (str.length <= 1) return str;
-	return reverse(str.slice(1)) + str[0];
-}
+// function reverse(str) {
+// 	if (str.length <= 1) return str;
+// 	return reverse(str.slice(1)) + str[0];
+// }
 
-console.log(reverse('awesome'));
-console.log(reverse('rithmschool'));
+// console.log(reverse('awesome'));
+// console.log(reverse('rithmschool'));
 
-function isPalindrome(str) {
-	if (str.length === 1) return true;
-	if (str.length === 2) return str[0] === str[1];
-	if (str[0] === str.slice(-1)) return isPalindrome(str.slice(1, -1));
-	return false;
-}
+// function isPalindrome(str) {
+// 	if (str.length === 1) return true;
+// 	if (str.length === 2) return str[0] === str[1];
+// 	if (str[0] === str.slice(-1)) return isPalindrome(str.slice(1, -1));
+// 	return false;
+// }
 
-console.log(isPalindrome('awesome')); // false
-console.log(isPalindrome('foobar')); // false
-console.log(isPalindrome('tacocat')); // true
-console.log(isPalindrome('amanaplanacanalpanama')); // true
-console.log(isPalindrome('amanaplanacanalpandemonium')); // false
+// console.log(isPalindrome('awesome')); // false
+// console.log(isPalindrome('foobar')); // false
+// console.log(isPalindrome('tacocat')); // true
+// console.log(isPalindrome('amanaplanacanalpanama')); // true
+// console.log(isPalindrome('amanaplanacanalpandemonium')); // false
 
-function someRecursive(array, callback) {
-	if (array.length === 0) return false;
-	if (callback(array[array.length - 1])) return true;
-	return someRecursive(array.slice(0, -1), callback);
-}
+// function someRecursive(array, callback) {
+// 	if (array.length === 0) return false;
+// 	if (callback(array[array.length - 1])) return true;
+// 	return someRecursive(array.slice(0, -1), callback);
+// }
 
-const isOdd = (val) => val % 2 !== 0;
+// const isOdd = (val) => val % 2 !== 0;
 
-console.log(someRecursive([ 1, 2, 3, 4 ], isOdd)); // true
-console.log(someRecursive([ 4, 6, 8, 9 ], isOdd)); // true
-console.log(someRecursive([ 4, 6, 8 ], isOdd)); // false
-console.log(someRecursive([ 4, 6, 8 ], (val) => val > 10)); // false
+// console.log(someRecursive([ 1, 2, 3, 4 ], isOdd)); // true
+// console.log(someRecursive([ 4, 6, 8, 9 ], isOdd)); // true
+// console.log(someRecursive([ 4, 6, 8 ], isOdd)); // false
+// console.log(someRecursive([ 4, 6, 8 ], (val) => val > 10)); // false
 
-function flatten(oldArr) {
-	var newArr = [];
-	for (var i = 0; i < oldArr.length; i++) {
-		if (Array.isArray(oldArr[i])) {
-			newArr = newArr.concat(flatten(oldArr[i]));
-		} else {
-			newArr.push(oldArr[i]);
-		}
+// function flatten(oldArr) {
+// 	var newArr = [];
+// 	for (var i = 0; i < oldArr.length; i++) {
+// 		if (Array.isArray(oldArr[i])) {
+// 			newArr = newArr.concat(flatten(oldArr[i]));
+// 		} else {
+// 			newArr.push(oldArr[i]);
+// 		}
+// 	}
+// 	return newArr;
+// }
+
+// console.log(flatten([ 1, 2, 3, [ 4, 5 ] ])); // [1, 2, 3, 4, 5]
+// console.log(flatten([ 1, [ 2, [ 3, 4 ], [ [ 5 ] ] ] ])); // [1, 2, 3, 4, 5]
+// console.log(flatten([ [ 1 ], [ 2 ], [ 3 ] ])); // [1, 2, 3]
+// console.log(flatten([ [ [ [ 1 ], [ [ [ 2 ] ] ], [ [ [ [ [ [ [ 3 ] ] ] ] ] ] ] ] ] ])); // [1, 2, 3]
+
+//##########################################################
+//##################-> Recursion Part 2 <-##################
+//##########################################################
+
+function capitalizeWords(arr) {
+	if (arr.length === 1) {
+		return [ arr[0].toUpperCase() ];
 	}
+	let newArr = capitalizeWords(arr.slice(0, -1));
+	newArr.push(arr.slice(arr.length - 1)[0].toUpperCase());
 	return newArr;
 }
 
-console.log(flatten([ 1, 2, 3, [ 4, 5 ] ])); // [1, 2, 3, 4, 5]
-console.log(flatten([ 1, [ 2, [ 3, 4 ], [ [ 5 ] ] ] ])); // [1, 2, 3, 4, 5]
-console.log(flatten([ [ 1 ], [ 2 ], [ 3 ] ])); // [1, 2, 3]
-console.log(flatten([ [ [ [ 1 ], [ [ [ 2 ] ] ], [ [ [ [ [ [ [ 3 ] ] ] ] ] ] ] ] ] ])); // [1, 2, 3]
+let words = [ 'i', 'am', 'learning', 'recursion' ];
+console.log(capitalizeWords(words)); // ['I', 'AM', 'LEARNING', 'RECURSION']
+
+function nestedEvenSum(obj, sum = 0) {
+	for (var key in obj) {
+		if (typeof obj[key] === 'object') {
+			sum += nestedEvenSum(obj[key]);
+		} else if (typeof obj[key] === 'number' && obj[key] % 2 === 0) {
+			sum += obj[key];
+		}
+	}
+	return sum;
+}
+
+var obj1 = {
+	outer: 2,
+	obj: {
+		inner: 2,
+		otherObj: {
+			superInner: 2,
+			notANumber: true,
+			alsoNotANumber: 'yup'
+		}
+	}
+};
+
+var obj2 = {
+	a: 2,
+	b: { b: 2, bb: { b: 3, bb: { b: 2 } } },
+	c: { c: { c: 2 }, cc: 'ball', ccc: 5 },
+	d: 1,
+	e: { e: { e: 2 }, ee: 'car' }
+};
+
+console.log(nestedEvenSum(obj1)); // 6
+console.log(nestedEvenSum(obj2)); // 10
+
+function capitalizeFirst(array) {
+	if (array.length === 1) {
+		return [ array[0][0].toUpperCase() + array[0].substr(1) ];
+	}
+	const res = capitalizeFirst(array.slice(0, -1));
+	const string = array.slice(array.length - 1)[0][0].toUpperCase() + array.slice(array.length - 1)[0].substr(1);
+	res.push(string);
+	return res;
+}
+
+console.log(capitalizeFirst([ 'car', 'taco', 'banana' ])); // ['Car','Taco','Banana'];
+
+function stringifyNumbers(obj) {
+	var newObj = {};
+	for (var key in obj) {
+		if (typeof obj[key] === 'number') {
+			newObj[key] = obj[key].toString();
+		} else if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+			newObj[key] = stringifyNumbers(obj[key]);
+		} else {
+			newObj[key] = obj[key];
+		}
+	}
+	return newObj;
+}
+
+let obj = {
+	num: 1,
+	three: 3,
+	test: [ 1, 2, 3, 4 ],
+	data: {
+		val: 4,
+		info: {
+			isRight: true,
+			random: 66
+		}
+	}
+};
+
+console.log(stringifyNumbers(obj));
+
+function collectStrings(obj) {
+	var stringsArr = [];
+
+	function gatherStrings(o) {
+		function gatherStringsLvl2(theObj) {
+			for (var key in theObj) {
+				if (typeof theObj[key] === 'string') {
+					stringsArr.push(theObj[key]);
+				} else if (typeof theObj[key] === 'object') {
+					return gatherStringsLvl2(theObj[key]);
+				}
+			}
+		}
+
+		gatherStringsLvl2(o);
+	}
+
+	gatherStrings(obj);
+
+	return stringsArr;
+}
+
+const obj3 = {
+	stuff: 'foo',
+	data: {
+		val: {
+			thing: {
+				info: 'bar',
+				moreInfo: {
+					evenMoreInfo: {
+						weMadeIt: 'baz'
+					}
+				}
+			}
+		}
+	}
+};
+
+console.log(collectStrings(obj3)); // ["foo", "bar", "baz
+
+function collectStrings2(obj) {
+	var stringsArr = [];
+	for (var key in obj) {
+		if (typeof obj[key] === 'string') {
+			stringsArr.push(obj[key]);
+		} else if (typeof obj[key] === 'object') {
+			stringsArr = stringsArr.concat(collectStrings2(obj[key]));
+		}
+	}
+
+	return stringsArr;
+}
+
+console.log(collectStrings2(obj3)); // ["foo", "bar", "baz
